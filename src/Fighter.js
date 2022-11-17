@@ -51,10 +51,13 @@ class Fighter {
         return this.name + " : " + this.winCount + "🏆 - " + this.deathCount + "💀";
     }
 
-    isAlive(f) {
+    isAliveFct(f) {
         if (this.life) f();
     }
 
+    isAlive() {
+        return (this.life);
+    }
     heal(healthpoints) {
         this.life += healthpoints;
         return this.name + ` a été soigné de ${Math.floor(healthpoints)} 💙`;

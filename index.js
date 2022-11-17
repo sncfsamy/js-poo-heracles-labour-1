@@ -20,7 +20,7 @@ let round = 1;
 const game = document.querySelector("#game");
 const autoGame = document.querySelector("input");
 
-function add(x) {
+function addInPage(x) {
     const newDiv = document.createElement("div");
     newDiv.innerHTML = x;
     game.appendChild(newDiv);
@@ -40,12 +40,12 @@ function start(enemy,index) {
     if (heracles.life < 100) {
         let heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
         heal = (heracles.life+heal > 100)? 100-heracles.life : heal;
-        add(heracles.heal(heal));
+        addInPage(heracles.heal(heal));
     }
     if (enemy.life < 100) enemy.life = enemy.defaultLife;
-    add(heracles.getLife());
-    add(enemy.getLife());
-    add("Le combat commencera dans 10sec...");
+    addInPage(heracles.getLife());
+    addInPage(enemy.getLife());
+    addInPage("Le combat commencera dans 10sec...");
     setTimeout(fight, 10000, enemy, index);
 }
 
@@ -73,16 +73,16 @@ function auto() {
 }
 
 function fight(enemy,index) {
-  add('🕛 Round n°' + round);
-  heracles.isAlive(() => add(heracles.fight(enemy)));
-  enemy.isAlive(() => add(enemy.fight(heracles)));
-  if (enemy.life === 0 || heracles.life === 0) {
-    add("🕛 Le combat s'est terminé au round n°" + round);
-    add("<button onClick='restart(" + index +");'>Relancer un combat</button>");
-    add("<h3>Scores:</h3>");
-    add(heracles.getScore());
+  addInPage('🕛 Round n°' + round);
+  heracles.isAliveFct(() => addInPage(heracles.fight(enemy)));
+  enemy.isAliveFct(() => addInPage(enemy.fight(heracles)));
+  if (!enemy.isAlive() || !heracles.isAlive()) {
+    addInPage("🕛 Le combat s'est terminé au round n°" + round);
+    addInPage("<button onClick='restart(" + index +");'>Relancer un combat</button>");
+    addInPage("<h3>Scores:</h3>");
+    addInPage(heracles.getScore());
     enemies.forEach(animal => {
-        add(animal.getScore());
+        addInPage(animal.getScore());
     });
     if (autoGame.checked) autoRestart(index,10);
     return;

@@ -35,9 +35,9 @@ function restart(lastEnemyIndex) {
 
 function start(enemy,index) {
     if (heracles.life < 100) {
-        const heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
-        heracles.life += (heracles.life+heal > 100)? 100-heracles.life : heal;
-        add(heracles.name + ` est soigné de ${heal} 💙`);
+        let heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
+        heal = (heracles.life+heal > 100)? 100-heracles.life : heal;
+        add(heracles.heal(heal));
     }
     if (enemy.life < 100) enemy.life = enemy.defaultLife;
     add(heracles.getLife());

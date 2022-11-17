@@ -27,6 +27,11 @@ class Fighter {
     isAlive(f) {
         if (this.life) f();
     }
+
+    heal(healthpoints) {
+        this.life += healthpoints;
+        return this.name + ` a été soigné de ${heal} 💙`;
+    }
 }
 
 //module.exports = Fighter;

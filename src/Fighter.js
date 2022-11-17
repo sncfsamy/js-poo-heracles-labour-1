@@ -10,6 +10,16 @@ class Fighter {
         this.life = life;
         this.defaultLife = life;
         this.badChance = 0;
+        this.winCount = 0;
+        this.deathCount = 0;
+    }
+
+    win() {
+        this.winCount += 1;
+    }
+
+    death() {
+        this.deathCount += 1;
     }
 
     getLife() {
@@ -22,12 +32,23 @@ class Fighter {
         attack = (attack - fighter.dexterity)>0 ? attack-fighter.dexterity: Math.random()>0.5? 1 : 0;
         if (attack <= 1 && this.name == '🧔 Héraclès')
             if ((Math.random() + Math.random() + Math.random() +Math.random() + this.badChance) > 3.2) {
-             attack = ((Math.random()+this.badChance)) * this.strength)-fighter.dexterity/4;
+             attack = ((Math.random()+this.badChance) * this.strength)-fighter.dexterity/4;
              this.badChance = 0;
             } else this.badChance += 0.1;
             
         fighter.life -= (fighter.life-attack >=0)? Math.abs(attack) : fighter.life;
+        if (fighter.life == 0) {
+            this.win();
+            fighter.death();
+        } else if (this.life == 0) {
+            fighter.win();
+            this.death();
+        }
         return fighter.life > 0 ? this.name + "⚔️" + fighter.name + ": " + fighter.getLife() : "🏆" + this.name + " a gagné ! ("+this.getLife() +")\r\n" + "💀" + fighter.name + " est mort.";
+    }
+
+    getScore() {
+        return this.name + " : " + this.winCount + "🏆 - " + this.deathCount + "💀";
     }
 
     isAlive(f) {

@@ -8,6 +8,7 @@ class Fighter {
         this.strength = strength;
         this.dexterity = dexterity;
         this.life = life;
+        this.defaultLife = life;
     }
 
     getLife() {

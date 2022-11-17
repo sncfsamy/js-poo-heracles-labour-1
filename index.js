@@ -40,8 +40,8 @@ function start(enemy,index) {
         add(heracles.name + ` est soigné de ${heal} 💙`);
     }
     if (enemy.life < 100) enemy.life = enemy.defaultLife;
-    add(heracles.name + ' : ' + heracles.getLife());
-    add(enemy.name + ' : ' + enemy.getLife());
+    add(heracles.getLife());
+    add(enemy.getLife());
     add("Le combat commencera dans 10sec...");
     setTimeout(fight, 10000, enemy, index);
 }

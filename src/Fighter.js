@@ -30,7 +30,7 @@ class Fighter {
 
     heal(healthpoints) {
         this.life += healthpoints;
-        return this.name + ` a été soigné de ${healthpoints} 💙`;
+        return this.name + ` a été soigné de ${Math.floor(healthpoints)} 💙`;
     }
 }
 

@@ -26,7 +26,7 @@ function add(x) {
 
 function restart(lastEnemyIndex) {
     game.innerHTML = "";
-    round = 0;
+    round = 1;
     let newEnemy = Math.ceil(Math.random() * enemies.length) - 1;
     while (newEnemy == lastEnemyIndex) newEnemy = Math.ceil(Math.random() * enemies.length)-1;
     newEnemy = newEnemy< 0 ? 0 : newEnemy;

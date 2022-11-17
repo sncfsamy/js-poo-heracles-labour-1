@@ -13,6 +13,7 @@ const enemies = [
     new Fighter('🐅 Tigre du Bengale', 15, 15),
     new Fighter('🐿️ Ecureuil enragé', 11, 16)
 ]
+let round = 1;
     
 const game = document.querySelector("#game");
 
@@ -25,13 +26,16 @@ function add(x) {
 
 function restart(lastEnemyIndex) {
     game.innerHTML = "";
-    let newEnemy = Math.floor(Math.random() * enemies.length - 1);
-    while (newEnemy == lastEnemyIndex) newEnemy = Math.floor(Math.random() * enemies.length - 1);
+    round = 0;
+    let newEnemy = Math.ceil(Math.random() * enemies.length) - 1;
+    while (newEnemy == lastEnemyIndex) newEnemy = Math.ceil(Math.random() * enemies.length)-1;
+    newEnemy = newEnemy< 0 ? 0 : newEnemy;
     start(enemies[newEnemy], newEnemy);
 }
+
 function start(enemy,index) {
     if (heracles.life < 100) {
-        const heal = (enemy.defaultLife - heracles.life > 100) ? 100 : 50;
+        const heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
         heracles.life += (heracles.life+heal > 100)? 100-heracles.life : heal;
         add(heracles.name + ` est soigné de ${heal} 💙`);
     }
@@ -41,7 +45,7 @@ function start(enemy,index) {
     add("Le combat commencera dans 10sec...");
     setTimeout(fight, 10000, enemy, index);
 }
-let round = 1;
+
 function fight(enemy,index) {
   add('🕛 Round n°' + round);
   heracles.isAlive(() => add(heracles.fight(enemy)));
@@ -55,4 +59,5 @@ function fight(enemy,index) {
     setTimeout(fight, 500, enemy, index);
   }
 }
+
 start(enemies[0],0);

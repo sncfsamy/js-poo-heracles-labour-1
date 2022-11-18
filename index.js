@@ -28,17 +28,22 @@ function addInPage(x) {
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-function pushScores() {
+function pushScores(p1,p2) {
     let scores = "<h3>Scores:</h3><div>" + heracles.getScore() + "</div>";
     enemies.forEach(animal => {
         scores += "<div>" +animal.getScore()+ "</div>";
     });
     scoresDiv.innerHTML = scores;
+    if (p1 && p2) {
+        document.getElementById((p1.isAlive()? "win" : "death") + p1.id).classList.add(p1.isAlive()? "win" : "death");
+        document.getElementById((p2.isAlive()? "win" : "death") + p2.id).classList.add(p2.isAlive()? "win" : "death");
+    }
 }
 
 function restart(lastEnemyIndex) {
     game.innerHTML = "";
     round = 1;
+    document.querySelectorAll(".win,.death").forEach(elem => { elem.classList.remove("win"); elem.classList.remove("death"); });
     let newEnemy = Math.ceil(Math.random() * enemies.length) - 1;
     while (newEnemy == lastEnemyIndex) newEnemy = Math.ceil(Math.random() * enemies.length)-1;
     newEnemy = newEnemy< 0 ? 0 : newEnemy;
@@ -88,7 +93,7 @@ function fight(enemy,index) {
   if (!enemy.isAlive() || !heracles.isAlive()) {
     addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
     addInPage("<br /><br /></br /><button onClick='restart(" + index +");'>Relancer un combat</button>");
-    pushScores();
+    pushScores(heracles,enemy);
     if (autoGame.checked) autoRestart(index,10);
     return;
   } else {

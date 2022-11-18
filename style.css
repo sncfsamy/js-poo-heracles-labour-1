@@ -14,3 +14,43 @@ section {
     top: 10%;
     right:50px;
 }
+
+span {
+    transition: 2s ease-in-out;
+    font-size: x-large;
+    font-weight: 800;
+}
+
+.win {
+    color: rgb(38, 224, 38);
+    animation-name: win;
+    animation-duration: 12s;
+    animation-delay: 3s;
+}
+
+.death {
+    color: rgb(238, 31, 31);
+    animation-name: death;
+    animation-duration: 12s;
+    animation-delay: 3s;
+}
+
+@keyframes win {
+    from {
+      color: rgb(38, 224, 38);
+    }
+  
+    to {
+      color: #cbcbcb;
+    }
+}
+  
+@keyframes death {
+    from {
+      color: rgb(238, 31, 31);
+    }
+  
+    to {
+      color: #cbcbcb;
+    }
+}

@@ -1,6 +1,7 @@
 
 /* Fighter class definition */
 const MAX_LIFE = 100;
+let ids = Math.random()*1000;
 
 class Fighter {
     constructor (name, strength, dexterity, life = MAX_LIFE) {
@@ -12,6 +13,8 @@ class Fighter {
         this.badChance = 0;
         this.winCount = 0;
         this.deathCount = 0;
+        this.id = ids;
+        ids++;
     }
 
     win() {
@@ -48,7 +51,7 @@ class Fighter {
     }
 
     getScore() {
-        return this.name + " : " + this.winCount + "🏆 - " + this.deathCount + "💀";
+        return this.name + " : <span id=\"win" + this.id + "\">" + this.winCount + "</span>🏆 - <span id=\"death" + this.id + "\">" + this.deathCount + "</span>💀";
     }
 
     isAliveFct(f) {

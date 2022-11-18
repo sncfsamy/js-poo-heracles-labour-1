@@ -15,10 +15,28 @@ section {
     right:50px;
 }
 
+.loosing {
+    color: rgb(202, 33, 33);
+}
+
+.weapon {
+    color: rgb(253, 181, 74);
+}
+
+.shield {
+    color: rgb(37, 183, 250);
+}
+
 span {
     transition: 2s ease-in-out;
     font-size: x-large;
     font-weight: 800;
+}
+
+.chance {
+    font-size: initial;
+    font-weight: initial;
+    color: rgb(202, 202, 59);
 }
 
 .win {

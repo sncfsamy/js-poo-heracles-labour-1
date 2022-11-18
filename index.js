@@ -68,7 +68,7 @@ function start(enemy,index) {
     if (!heracles.shield && !heracles.weapon && (Math.random() > 0.8 || index == 0)) {
         heracles.giveWeapon();
         heracles.giveShield();
-        addInPage(heracles.name + ` a trouvé une <b style="color:orange;">${heracles.weapon.name}</b> et un <b style="color: blue;">${heracles.shield.name}</b> !`);
+        addInPage(heracles.name + ` a trouvé une <b class="weapon">${heracles.weapon.name}</b> et un <b class="shield">${heracles.shield.name}</b> !`);
     }
     if (enemy.life < 100) enemy.life = enemy.defaultLife;
     addInPage(heracles.getLife());

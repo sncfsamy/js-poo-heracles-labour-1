@@ -32,7 +32,7 @@ function addInPage(x) {
     game.scrollTo(0, game.scrollHeight);
 }
 
-heracles.setLooseWeapon(addInPage);
+heracles.setLooseWeaponOrShield(addInPage);
 
 function pushScores(p1,p2) {
     let scores = "<h3>Scores:</h3><div class=\"scoreslist\"><div><span><u>Combattants</u></span></div><div>🏆</div><div>💀</div>" + heracles.getScore();
@@ -114,7 +114,17 @@ function fight(enemy,index) {
     heracles.isAliveFct(() => simulation===simulationMax? addInPage(heracles.fight(enemy)) : heracles.fight(enemy));
     enemy.isAliveFct(() => simulation===simulationMax? addInPage(enemy.fight(heracles)) : enemy.fight(heracles));
     if (!enemy.isAlive() || !heracles.isAlive()) {
+        heracles.attacks += heracles.attacksLastFight,
+        heracles.attacksSum += heracles.attacksSumLastFight,
+        enemy.attacks += enemy.attacksLastFight,
+        enemy.attacksSum += enemy.attacksSumLastFight;
         addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
+        addInPage(`Dégats moyens de ${heracles.name} : <b>${(heracles.attacksSumLastFight/heracles.attacksLastFight).toFixed(2)}/attaque</b> sur ce combat. <b>${(heracles.attacksSum/heracles.attacks).toFixed(2)}/attaque</b> cumulés sur tous ses combats.`);
+        addInPage(`Dégats moyens de ${enemy.name} : <b>${(enemy.attacksSumLastFight/enemy.attacksLastFight).toFixed(2)}/attaque</b> sur ce combat. <b>${(enemy.attacksSum/enemy.attacks).toFixed(2)}/attaque</b> cumulé sur tous ses combats.`);
+        heracles.attacksSumLastFight = 0,
+        heracles.attacksLastFight = 0,
+        enemy.attacksSumLastFight = 0,
+        enemy.attacksLastFight = 0;
         pushScores(heracles,enemy);
         if(autoGame.checked || simulation+1===simulationMax) {
             addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");

@@ -2,6 +2,17 @@
 /* Fighter class definition */
 const MAX_LIFE = 100;
 let ids = Math.random()*1000;
+const weapons = [
+    new Weapon("Super épée brillante",19),
+    new Weapon("Épée de bonne facture", 13),
+    new Weapon("Épée pointue un peu émoussée", 10)
+];
+
+const shields = [
+    new Shield("Bouclier en vibranioum", 17),
+    new Shield("Grand bouclier en fer forgé", 13),
+    new Shield("Vieux bouclier pourri", 10)
+];
 
 class Fighter {
     constructor (name, strength, dexterity, life = MAX_LIFE) {
@@ -16,10 +27,14 @@ class Fighter {
         this.weapon = null;
         this.shield = null;
         this.id = ids;
+        this.attacks = 0;
+        this.attacksSum = 0;
+        this.attacksLastFight = 0;
+        this.attacksSumLastFight = 0;
         ids++;
     }
 
-    setLooseWeapon(f) {
+    setLooseWeaponOrShield(f) {
         this.addToPage = f;
     }
 
@@ -73,11 +88,11 @@ class Fighter {
     }
 
     giveWeapon() {
-        this.weapon = new Weapon("Epée pointue un peu émoussée", 10);
+        this.weapon = weapons[Math.ceil(Math.random() * weapons.length)-1];
     }
 
     giveShield() {
-        this.shield = new Shield("Vieux bouclier pourri", 10);
+        this.shield = shields[Math.ceil(Math.random() * shields.length)-1];
     }
 
     getDamage(fighter) {
@@ -107,7 +122,8 @@ class Fighter {
     fight(fighter) {
         if (this.life == 0) return "";
         let attack = this.getDamage(fighter);
-
+        this.attacksLastFight++;
+        this.attacksSumLastFight += attack;
         fighter.life -= (fighter.life-attack >=0)? Math.abs(attack) : fighter.life;
         if (fighter.life == 0) {
             this.win();

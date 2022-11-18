@@ -116,7 +116,7 @@ function fight(enemy,index) {
     if (!enemy.isAlive() || !heracles.isAlive()) {
         addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
         pushScores(heracles,enemy);
-        if(!autoGame.checked || simulation+1===simulationMax) {
+        if(autoGame.checked || simulation+1===simulationMax) {
             addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
         }
         if (autoGame.checked || simulation!==simulationMax) {

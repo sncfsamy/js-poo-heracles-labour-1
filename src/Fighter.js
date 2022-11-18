@@ -27,31 +27,31 @@ class Fighter {
         this.weapon = null;
         switch(Math.random() * 10) {
             case 1:
-                this.addToPage(this.name + " a perdu son épée !");
+                this.addToPage("<b style=\"color: red;\">" + this.name + " a perdu son épée !</b>");
                 break;
             case 2:
-                this.addToPage(this.name + " a perdu son épée à cause de " + fighter.name + " !");
+                this.addToPage("<b style=\"color: red;\">" + this.name + " a perdu son épée à cause de " + fighter.name + " !</b>");
                 break;
             case 3:
-                this.addToPage(fighter.name + " a cassé l'épée de " + this.name);
+                this.addToPage("<b style=\"color: red;\">" + fighter.name + " a cassé l'épée de " + this.name + "</b>");
                 break;
             case 4:
-                this.addToPage(fighter.name + " a avalé l'épée de " + this.name);
+                this.addToPage("<b style=\"color: red;\">" + fighter.name + " a avalé l'épée de " + this.name + "</b>");
                 break;
             case 5:
-                this.addToPage(fighter.name + " a gardé l'épée de " + this.name + " enfoncée dans son flanc !");
+                this.addToPage("<b style=\"color: red;\">" + fighter.name + " a gardé l'épée de " + this.name + " enfoncée dans son flanc !</b>");
                 break;
             case 6:
-                this.addToPage(this.name + " a laissé tomber son épée !");
+                this.addToPage("<b style=\"color: red;\">" + this.name + " a laissé tomber son épée !</b>");
                 break;
             default:
-                this.addToPage(this.name + " a laissé échaper son épée ");
+                this.addToPage("<b style=\"color: red;\">" + this.name + " a laissé échaper son épée !</b>");
         }
     }
 
     looseShield() {
         this.shield = null;
-        this.addToPage(this.name + " a perdu son bouclier !");    
+        this.addToPage("<b style=\"color: red;\">" + this.name + " a perdu son bouclier !</b>");    
     }
 
     win() {

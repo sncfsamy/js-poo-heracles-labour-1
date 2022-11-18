@@ -125,6 +125,7 @@ function fight(enemy,index) {
             simulationVal.readOnly = false;
         }
         if (autoGame.checked || simulation!==simulationMax) {
+            simulation = simulationMax>simulation? simulation+1: simulationMax;
             simulationVal.value = (Math.abs(Math.ceil(parseInt(simulationVal.value)))-1).toString();
             autoRestart(index,simulation===simulationMax ? 10 : 0);
         }

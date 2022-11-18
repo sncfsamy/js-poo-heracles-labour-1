@@ -6,6 +6,7 @@
 //const Fighter = require('./src/Fighter');
 
 const heracles = new Fighter('🧔 Héraclès', 20, 6);
+let simulation = 0, simulationMax = 0;
 const enemies = [
     new Fighter("🐗 Sanglier d'Érymanthe", 28, 20),
     new Fighter('🦁 Lion de Némée', 11, 13),
@@ -20,7 +21,9 @@ let round = 1;
     
 const game = document.querySelector("#game");
 const scoresDiv = document.querySelector("#scores");
-const autoGame = document.querySelector("input");
+const autoGame = document.querySelector("#auto");
+const simulate = document.querySelector("#startsimulation");
+const simulationVal = document.querySelector("#simulation");
 
 function addInPage(x) {
     const newDiv = document.createElement("div");
@@ -43,7 +46,7 @@ function pushScores(p1,p2) {
         document.getElementById((p2.isAlive()? "win" : "death") + p2.id).classList.add(p2.isAlive()? "win" : "death");
         setTimeout(()=> {
             document.querySelectorAll(".win,.death").forEach(elem => { elem.classList.remove("win"); elem.classList.remove("death"); });
-        }, 10000);
+        }, simulation == simulationMax ? 10000 : 0);
     }
 }
 
@@ -75,7 +78,7 @@ function start(enemy,index) {
     addInPage(heracles.getLife());
     addInPage(enemy.getLife());
     addInPage("Le combat commencera dans 10sec...");
-    setTimeout(fight, 10000, enemy, index);
+    setTimeout(fight, simulation==simulationMax? 10000 : 0, enemy, index);
 }
 
 function autoRestart(index, timer = 10) {
@@ -84,13 +87,16 @@ function autoRestart(index, timer = 10) {
     } else {
         const timeout = setTimeout((index, timer)=> {
             timer--;
-            if (autoGame.checked) {
-                document.querySelector("button").innerText = "Relancer un combat (auto dans " + timer + "sec)";
-                autoRestart(index, timer);
-            } else {
-                document.querySelector("button").innerText = "Relancer un combat";
+            const button = document.querySelector("#restartfight");
+            if (button) {
+                if (autoGame.checked) {
+                    button.innerText = "Relancer un combat (auto dans " + timer + "sec)";
+                    autoRestart(index, timer);
+                } else {
+                    button.innerText = "Relancer un combat";
+                }
             }
-        }, 1000, index, timer);
+        }, simulation===simulationMax? 1000 : 0, index, timer);
     }
 }
 
@@ -102,20 +108,50 @@ function auto() {
 }
 
 function fight(enemy,index) {
-  addInPage('🕛 Round n°' + round);
-  heracles.isAliveFct(() => addInPage(heracles.fight(enemy)));
-  enemy.isAliveFct(() => addInPage(enemy.fight(heracles)));
-  if (!enemy.isAlive() || !heracles.isAlive()) {
-    addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
-    addInPage("<br /><br /></br /><button onClick='restart(" + index +");'>Relancer un combat</button>");
-    pushScores(heracles,enemy);
-    if (autoGame.checked) autoRestart(index,10);
-    return;
-  } else {
-    round++;
-    setTimeout(fight, 500, enemy, index);
-  }
+    if(simulation===simulationMax) {
+        addInPage('🕛 Round n°' + round);
+    }
+    heracles.isAliveFct(() => simulation===simulationMax? addInPage(heracles.fight(enemy)) : heracles.fight(enemy));
+    enemy.isAliveFct(() => simulation===simulationMax? addInPage(enemy.fight(heracles)) : enemy.fight(heracles));
+    if (!enemy.isAlive() || !heracles.isAlive()) {
+        addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
+        if(simulation===simulationMax) {
+            addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
+        }
+        pushScores(heracles,enemy);
+        if (simulation === simulationMax) {
+            autoGame.disabled = false;
+            simulate.disabled = false;
+            simulationVal.readOnly = false;
+        }
+        if (autoGame.checked || simulation!==simulationMax) {
+            simulationVal.value = (Math.abs(Math.ceil(parseInt(simulationVal.value)))-1).toString();
+            autoRestart(index,simulation===simulationMax ? 10 : 0);
+        }
+        return;
+    } else {
+        round++;
+        setTimeout(fight, simulation==simulationMax? 500 : 0, enemy, index);
+    }
 }
+simulate.addEventListener("click", function() {
+    const value = Math.abs(Math.ceil(parseInt(simulationVal.value)));
+    if (value > 0) {
+        simulation = 0;
+        simulationMax = value;
+        simulationVal.readOnly = true;
+        simulate.disabled = true;
+        autoGame.checked = true;
+        autoGame.disabled = true;
+    }
+});
+
+simulationVal.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      simulate.click();
+    }
+});
 
 pushScores();
 start(enemies[0],0);

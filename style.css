@@ -18,6 +18,15 @@ section {
     font-size: large;
 }
 
+.simulation {
+    position: fixed;
+    top: 5%;
+    right: 13%;
+}
+.simulation #simulation {
+    width: 90px;
+}
+
 #scores {
     position: fixed;
     top: 10%;

@@ -1,0 +1,16 @@
+body {
+    background-color:#2f2f2f; 
+    color: #cbcbcb; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+section {
+    padding: 80px;
+}
+
+#scores {
+    position: fixed;
+    top: 10%;
+    right:25%;
+}

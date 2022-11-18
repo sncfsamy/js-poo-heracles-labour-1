@@ -18,6 +18,7 @@ const enemies = [
 let round = 1;
     
 const game = document.querySelector("#game");
+const scoresDiv = document.querySelector("#scores");
 const autoGame = document.querySelector("input");
 
 function addInPage(x) {
@@ -25,6 +26,14 @@ function addInPage(x) {
     newDiv.innerHTML = x;
     game.appendChild(newDiv);
     window.scrollTo(0, document.body.scrollHeight);
+}
+
+function pushScores() {
+    let scores = "<h3>Scores:</h3><div>" + heracles.getScore() + "</div>";
+    enemies.forEach(animal => {
+        scores += "<div>" +animal.getScore()+ "</div>";
+    });
+    scoresDiv.innerHTML = scores;
 }
 
 function restart(lastEnemyIndex) {
@@ -79,11 +88,7 @@ function fight(enemy,index) {
   if (!enemy.isAlive() || !heracles.isAlive()) {
     addInPage("🕛 Le combat s'est terminé au round n°" + round);
     addInPage("<button onClick='restart(" + index +");'>Relancer un combat</button>");
-    addInPage("<h3>Scores:</h3>");
-    addInPage(heracles.getScore());
-    enemies.forEach(animal => {
-        addInPage(animal.getScore());
-    });
+    pushScores();
     if (autoGame.checked) autoRestart(index,10);
     return;
   } else {
@@ -92,4 +97,5 @@ function fight(enemy,index) {
   }
 }
 
+pushScores();
 start(enemies[0],0);

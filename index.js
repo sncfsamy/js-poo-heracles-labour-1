@@ -8,11 +8,11 @@
 const heracles = new Fighter('🧔 Héraclès', 20, 6);
 const enemies = [
     new Fighter('🦁 Lion de Némée', 11, 13),
-    new Fighter('🦘 Kangourou d\'Australie', 9, 22, 90),
-    new Fighter('🐘 Elephant d\'Afrique', 18, 2, 150),
-    new Fighter('🐅 Tigre du Bengale', 15, 15),
-    new Fighter('🐿️ Ecureuil enragé', 11, 16),
-    new Fighter('🦛 Hippopotame', 21, 5)
+    new Fighter('🦘 Kangourou d\'Australie', 11, 22, 90),
+    new Fighter('🐘 Elephant d\'Afrique', 21, 9, 150),
+    new Fighter('🐅 Tigre du Bengale', 15, 17),
+    new Fighter('🐿️ Ecureuil enragé', 11, 19),
+    new Fighter('🦛 Hippopotame', 21, 12)
 ];
 
 let round = 1;

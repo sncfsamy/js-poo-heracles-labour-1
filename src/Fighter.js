@@ -115,7 +115,7 @@ class Fighter {
             fighter.win();
             this.death();
         }
-        return fighter.life > 0 ? this.getName() + "⚔️" + fighter.name + ": " + fighter.getLife() : "🏆" + this.name + " a gagné ! ("+this.getLife() +")\r\n" + "💀" + fighter.name + " est mort.";
+        return fighter.life > 0 ? this.getName() + "⚔️" + fighter.name + ": " + fighter.getLife() : "🏆" + this.name + " a gagné ! ("+this.getLife() +")<br />" + "💀" + fighter.name + " est mort.";
     }
 
     getScore() {

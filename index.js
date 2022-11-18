@@ -126,7 +126,7 @@ function fight(enemy,index) {
             }
             autoRestart(index,simulation===simulationMax ? 10 : 0);
         }
-        if (simulation === simulationMax) {
+        if (simulation === simulationMax && simulationVal.readOnly) {
             autoGame.disabled = false;
             autoGame.checked = false;
             simulate.disabled = false;

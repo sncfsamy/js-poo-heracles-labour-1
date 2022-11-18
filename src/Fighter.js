@@ -13,8 +13,45 @@ class Fighter {
         this.badChance = 0;
         this.winCount = 0;
         this.deathCount = 0;
+        this.weapon = null;
+        this.shield = null;
         this.id = ids;
         ids++;
+    }
+
+    setLooseWeapon(f) {
+        this.addToPage = f;
+    }
+
+    looseWeapon(fighter) {
+        this.weapon = null;
+        switch(Math.random() * 10) {
+            case 1:
+                this.addToPage(this.name + " a perdu son épée !");
+                break;
+            case 2:
+                this.addToPage(this.name + " a perdu son épée à cause de " + fighter.name + " !");
+                break;
+            case 3:
+                this.addToPage(fighter.name + " a cassé l'épée de " + this.name);
+                break;
+            case 4:
+                this.addToPage(fighter.name + " a avalé l'épée de " + this.name);
+                break;
+            case 5:
+                this.addToPage(fighter.name + " a gardé l'épée de " + this.name + " enfoncée dans son flanc !");
+                break;
+            case 6:
+                this.addToPage(this.name + " a laissé tomber son épée !");
+                break;
+            default:
+                this.addToPage(this.name + " a laissé échaper son épée ");
+        }
+    }
+
+    looseShield() {
+        this.shield = null;
+        this.addToPage(this.name + " a perdu son bouclier !");    
     }
 
     win() {
@@ -29,16 +66,43 @@ class Fighter {
         return this.name + " 💙: " + Math.ceil(this.life);
     }
 
-    fight(fighter) {
-        if (this.life == 0) return "";
-        let attack = Math.random() * this.strength;
-        attack = (attack - fighter.dexterity)>0 ? attack-fighter.dexterity: Math.random()>0.5? 1 : 0;
+    getName() {
+        return (this.shield?"🛡️":"") + (this.weapon? "🗡️" : "") + this.name;
+    }
+
+    giveWeapon() {
+        this.weapon = new Weapon("Epée pointue", 10);
+    }
+
+    giveShield() {
+        this.shield = new Shield("Vieux bouclier pourris", 10);
+    }
+
+    getDamage(fighter) {
+        const weaponDamage = this.weapon && this.weapon.durability ? this.weapon.damage : 0;
+        let attack = Math.random() * (this.strength + weaponDamage);
+        attack = (attack - fighter.getDefense())>0 ? attack-fighter.getDefense(): Math.random()>0.5? 1 : 0;
         if (attack <= 1)
             if ((Math.random() + Math.random() + Math.random() +Math.random() + this.badChance) > 3.8 || (this.name == '🧔 Héraclès' && Math.random()>0.9)) {
-             attack = ((Math.random()+this.badChance) * this.strength)-fighter.dexterity/4;
+             attack = ((Math.random()+this.badChance) * this.strength)-fighter.getDefense()/4;
              this.badChance = 0;
             } else this.badChance += 0.025;
-            
+        
+        if (attack && this.weapon && !this.weapon.use()) this.looseWeapon(fighter);
+        
+        return attack;
+    }
+
+    getDefense() {
+        return this.dexterity + (this.shield? this.shield.protection : 0);
+    }
+
+    fight(fighter) {
+        if (this.life == 0) return "";
+        let attack = this.getDamage(fighter);
+
+        if (fighter.shield && !fighter.shield.use()) fighter.looseShield();
+
         fighter.life -= (fighter.life-attack >=0)? Math.abs(attack) : fighter.life;
         if (fighter.life == 0) {
             this.win();
@@ -47,7 +111,7 @@ class Fighter {
             fighter.win();
             this.death();
         }
-        return fighter.life > 0 ? this.name + "⚔️" + fighter.name + ": " + fighter.getLife() : "🏆" + this.name + " a gagné ! ("+this.getLife() +")\r\n" + "💀" + fighter.name + " est mort.";
+        return fighter.life > 0 ? this.getName() + "⚔️" + fighter.name + ": " + fighter.getLife() : "🏆" + this.name + " a gagné ! ("+this.getLife() +")\r\n" + "💀" + fighter.name + " est mort.";
     }
 
     getScore() {

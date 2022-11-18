@@ -7,11 +7,12 @@
 
 const heracles = new Fighter('🧔 Héraclès', 20, 6);
 const enemies = [
+    new Fighter("🐗 Sanglier d'Érymanthe", 25, 20),
     new Fighter('🦁 Lion de Némée', 11, 13),
     new Fighter('🦘 Kangourou d\'Australie', 11, 22, 90),
-    new Fighter('🐘 Elephant d\'Afrique', 21, 9, 150),
+    new Fighter('🐘 Élephant d\'Afrique', 21, 8, 150),
     new Fighter('🐅 Tigre du Bengale', 15, 17),
-    new Fighter('🐿️ Ecureuil enragé', 11, 19),
+    new Fighter('🐿️ Écureuil enragé', 11, 19),
     new Fighter('🦛 Hippopotame', 21, 12)
 ];
 
@@ -27,6 +28,8 @@ function addInPage(x) {
     game.appendChild(newDiv);
     window.scrollTo(0, document.body.scrollHeight);
 }
+
+heracles.setLooseWeapon(addInPage);
 
 function pushScores(p1,p2) {
     let scores = "<h3>Scores:</h3><div>" + heracles.getScore() + "</div>";
@@ -57,6 +60,11 @@ function start(enemy,index) {
         let heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
         heal = (heracles.life+heal > 100)? 100-heracles.life : heal;
         addInPage(heracles.heal(heal));
+    }
+    if (!heracles.shield && !heracles.weapon && (Math.random() > 0.8 || index == 0)) {
+        heracles.giveWeapon();
+        heracles.giveShield();
+        addInPage(heracles.name + ` a trouvé une <b style="color:orange;">${heracles.weapon.name}</b> et un <b style="color: blue;">${heracles.shield.name}</b> !`);
     }
     if (enemy.life < 100) enemy.life = enemy.defaultLife;
     addInPage(heracles.getLife());

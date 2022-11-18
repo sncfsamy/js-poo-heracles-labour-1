@@ -85,7 +85,7 @@ class Fighter {
         let attack = Math.random() * (this.strength + weaponDamage);
         attack = (attack - fighter.getDefense())>0 ? attack-fighter.getDefense(): Math.random()>0.5? 1 : 0;
         if (attack <= 1)
-            if ((Math.random() + Math.random() + Math.random() +Math.random() + this.badChance) > 3.2 || (this.name == '🧔 Héraclès' && Math.random()>0.9)) {
+            if ((Math.random() + Math.random() + Math.random() +Math.random() + this.dexterity/25 + this.badChance) > 3.2 || (this.name == '🧔 Héraclès' && Math.random()>0.9)) {
              attack = ((Math.random()+this.badChance) * this.strength)-fighter.getDefense()/4;
              attack = attack<10? attack+10 : attack;
              const msg = "<span class=\"chance\">" + this.name + " réussi à attaquer par chance ! (<b>" + attack.toFixed(2) + "pts de dégats</b> dont <b>" + this.badChance.toFixed(2) + "pts de dégats de chance</b> !)</span>";

@@ -116,18 +116,21 @@ function fight(enemy,index) {
     if (!enemy.isAlive() || !heracles.isAlive()) {
         addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
         pushScores(heracles,enemy);
-        if (simulation === simulationMax) {
-            autoGame.disabled = false;
-            simulate.disabled = false;
-            simulationVal.readOnly = false;
-        }
         if(!autoGame.checked || simulation+1===simulationMax) {
             addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
         }
         if (autoGame.checked || simulation!==simulationMax) {
-            simulation = simulationMax>simulation? simulation+1: simulationMax;
-            simulationVal.value = (Math.abs(Math.ceil(parseInt(simulationVal.value)))-1).toString();
+            if (simulation!==simulationMax) {
+                simulation = simulationMax>simulation? simulation+1: simulationMax;
+                simulationVal.value = (Math.abs(Math.ceil(parseInt(simulationVal.value)))-1).toString();
+            }
             autoRestart(index,simulation===simulationMax ? 10 : 0);
+        }
+        if (simulation === simulationMax) {
+            autoGame.disabled = false;
+            autoGame.checked = false;
+            simulate.disabled = false;
+            simulationVal.readOnly = false;
         }
         return;
     } else {
@@ -144,6 +147,9 @@ simulate.addEventListener("click", function() {
         simulate.disabled = true;
         autoGame.checked = true;
         autoGame.disabled = true;
+        const restartbutton = document.querySelector("#restartfight");
+        if(restartbutton)
+            restartbutton.click();
     }
 });
 

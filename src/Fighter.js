@@ -73,11 +73,11 @@ class Fighter {
     }
 
     giveWeapon() {
-        this.weapon = new Weapon("Epée pointue", 10);
+        this.weapon = new Weapon("Epée pointue un peu émoussée", 10);
     }
 
     giveShield() {
-        this.shield = new Shield("Vieux bouclier pourris", 10);
+        this.shield = new Shield("Vieux bouclier pourri", 10);
     }
 
     getDamage(fighter) {

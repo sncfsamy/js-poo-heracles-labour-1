@@ -86,8 +86,8 @@ function fight(enemy,index) {
   heracles.isAliveFct(() => addInPage(heracles.fight(enemy)));
   enemy.isAliveFct(() => addInPage(enemy.fight(heracles)));
   if (!enemy.isAlive() || !heracles.isAlive()) {
-    addInPage("🕛 Le combat s'est terminé au round n°" + round);
-    addInPage("<button onClick='restart(" + index +");'>Relancer un combat</button>");
+    addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
+    addInPage("<br /><br /></br /><button onClick='restart(" + index +");'>Relancer un combat</button>");
     pushScores();
     if (autoGame.checked) autoRestart(index,10);
     return;

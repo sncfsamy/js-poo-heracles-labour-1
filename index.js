@@ -7,7 +7,7 @@
 
 const heracles = new Fighter('🧔 Héraclès', 20, 6);
 const enemies = [
-    new Fighter("🐗 Sanglier d'Érymanthe", 25, 20),
+    new Fighter("🐗 Sanglier d'Érymanthe", 28, 20),
     new Fighter('🦁 Lion de Némée', 11, 13),
     new Fighter('🦘 Kangourou d\'Australie', 11, 22, 90),
     new Fighter('🐘 Élephant d\'Afrique', 21, 8, 150),
@@ -56,6 +56,10 @@ function restart(lastEnemyIndex) {
 }
 
 function start(enemy,index) {
+    if (!heracles.isAlive()) {
+        heracles.weapon = null;
+        heracles.shield = null;
+    }
     if (heracles.life < 100) {
         let heal = (enemy.defaultLife - heracles.life > 100 || heracles.life === 0) ? 100-heracles.life : 50;
         heal = (heracles.life+heal > 100)? 100-heracles.life : heal;

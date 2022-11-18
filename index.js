@@ -26,7 +26,7 @@ function addInPage(x) {
     const newDiv = document.createElement("div");
     newDiv.innerHTML = x;
     game.appendChild(newDiv);
-    window.scrollTo(0, document.body.scrollHeight);
+    game.scrollTo(0, game.scrollHeight);
 }
 
 heracles.setLooseWeapon(addInPage);

@@ -9,10 +9,19 @@ section {
     padding: 80px;
 }
 
+#game {
+    width: 50vw;
+    height: 60vh;
+    border: 1px solid #ccc;
+    padding: 5px;
+    overflow-y: scroll;
+    font-size: large;
+}
+
 #scores {
     position: fixed;
     top: 10%;
-    right:50px;
+    right: 10%;
 }
 
 .scoreslist {

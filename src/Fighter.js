@@ -94,6 +94,8 @@ class Fighter {
             } else this.badChance += 0.025;
         
         if (attack && this.weapon && !this.weapon.use()) this.looseWeapon(fighter);
+
+        if (fighter.shield && !fighter.shield.use()) fighter.looseShield();
         
         return attack;
     }
@@ -105,8 +107,6 @@ class Fighter {
     fight(fighter) {
         if (this.life == 0) return "";
         let attack = this.getDamage(fighter);
-
-        if (fighter.shield && !fighter.shield.use()) fighter.looseShield();
 
         fighter.life -= (fighter.life-attack >=0)? Math.abs(attack) : fighter.life;
         if (fighter.life == 0) {

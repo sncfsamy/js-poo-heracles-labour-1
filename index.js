@@ -115,14 +115,14 @@ function fight(enemy,index) {
     enemy.isAliveFct(() => simulation===simulationMax? addInPage(enemy.fight(heracles)) : enemy.fight(heracles));
     if (!enemy.isAlive() || !heracles.isAlive()) {
         addInPage("<br />🕛 Le combat s'est terminé au round n°" + round);
-        if(simulation===simulationMax) {
-            addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
-        }
         pushScores(heracles,enemy);
         if (simulation === simulationMax) {
             autoGame.disabled = false;
             simulate.disabled = false;
             simulationVal.readOnly = false;
+        }
+        if(!autoGame.checked || simulation+1===simulationMax) {
+            addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
         }
         if (autoGame.checked || simulation!==simulationMax) {
             simulation = simulationMax>simulation? simulation+1: simulationMax;

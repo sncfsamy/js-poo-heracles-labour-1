@@ -34,10 +34,10 @@ class Fighter {
         let attack = Math.random() * this.strength;
         attack = (attack - fighter.dexterity)>0 ? attack-fighter.dexterity: Math.random()>0.5? 1 : 0;
         if (attack <= 1)
-            if ((Math.random() + Math.random() + Math.random() +Math.random() + this.badChance || this.name == '🧔 Héraclès' && Math.random()>0.8) > 3.6) {
+            if ((Math.random() + Math.random() + Math.random() +Math.random() + this.badChance) > 3.8 || (this.name == '🧔 Héraclès' && Math.random()>0.9)) {
              attack = ((Math.random()+this.badChance) * this.strength)-fighter.dexterity/4;
              this.badChance = 0;
-            } else this.badChance += 0.05;
+            } else this.badChance += 0.025;
             
         fighter.life -= (fighter.life-attack >=0)? Math.abs(attack) : fighter.life;
         if (fighter.life == 0) {

@@ -37,13 +37,15 @@ function pushScores(p1,p2) {
     if (p1 && p2) {
         document.getElementById((p1.isAlive()? "win" : "death") + p1.id).classList.add(p1.isAlive()? "win" : "death");
         document.getElementById((p2.isAlive()? "win" : "death") + p2.id).classList.add(p2.isAlive()? "win" : "death");
+        setTimeout(()=> {
+            document.querySelectorAll(".win,.death").forEach(elem => { elem.classList.remove("win"); elem.classList.remove("death"); });
+        }, 10000);
     }
 }
 
 function restart(lastEnemyIndex) {
     game.innerHTML = "";
     round = 1;
-    document.querySelectorAll(".win,.death").forEach(elem => { elem.classList.remove("win"); elem.classList.remove("death"); });
     let newEnemy = Math.ceil(Math.random() * enemies.length) - 1;
     while (newEnemy == lastEnemyIndex) newEnemy = Math.ceil(Math.random() * enemies.length)-1;
     newEnemy = newEnemy< 0 ? 0 : newEnemy;

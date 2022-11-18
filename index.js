@@ -126,9 +126,7 @@ function fight(enemy,index) {
         enemy.attacksSumLastFight = 0,
         enemy.attacksLastFight = 0;
         pushScores(heracles,enemy);
-        if(autoGame.checked || simulation+1===simulationMax) {
-            addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
-        }
+        addInPage("<br /><br /></br /><button id=\"restartfight\" onClick='restart(" + index +");'>Relancer un combat</button>");
         if (autoGame.checked || simulation!==simulationMax) {
             if (simulation!==simulationMax) {
                 simulation = simulationMax>simulation? simulation+1: simulationMax;

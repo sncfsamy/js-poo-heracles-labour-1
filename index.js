@@ -32,10 +32,11 @@ function addInPage(x) {
 heracles.setLooseWeapon(addInPage);
 
 function pushScores(p1,p2) {
-    let scores = "<h3>Scores:</h3><div>" + heracles.getScore() + "</div>";
+    let scores = "<h3>Scores:</h3><div class=\"scoreslist\"><div><span><u>Combattants</u></span></div><div>🏆</div><div>💀</div>" + heracles.getScore();
     enemies.forEach(animal => {
-        scores += "<div>" +animal.getScore()+ "</div>";
+        scores += animal.getScore();
     });
+    scores += "</div>";
     scoresDiv.innerHTML = scores;
     if (p1 && p2) {
         document.getElementById((p1.isAlive()? "win" : "death") + p1.id).classList.add(p1.isAlive()? "win" : "death");

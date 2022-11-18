@@ -120,7 +120,7 @@ class Fighter {
     }
 
     getScore() {
-        return this.name + " : <span id=\"win" + this.id + "\">" + this.winCount + "</span>🏆 - <span id=\"death" + this.id + "\">" + this.deathCount + "</span>💀";
+        return "<div>" + this.name + "</div><div><span id=\"win" + this.id + "\">&nbsp;" + this.winCount + "</span></div><div><span id=\"death" + this.id + "\">&nbsp;" + this.deathCount + "</span></div>";
     }
 
     isAliveFct(f) {
